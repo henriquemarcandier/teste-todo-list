@@ -1,6 +1,7 @@
 @extends('master.layout')
 @section('content')
     <a href="{{route('index')}}">&laquo; Voltar</a> | <a href="">Cadastrar Nova Tarefa</a>
+    @if ($todoListsTasks != 0)
     <table id="example2" class="table table-bordered table-hover w-100">
         <thead>
             <tr>
@@ -9,8 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            @if ($todoListsTasks != 0)
-                @foreach ($todoListsTasks as $key => $value)
+            @foreach ($todoListsTasks as $key => $value)
             <tr>
                 <td class="w-50">{{$value->name}}</td>
                 <td class="w-50">
@@ -19,8 +19,10 @@
                     <img src="{{env('APP_URL')}}img/excluir.png" width="25" title="Excluir {{$value->name}}" style="cursor:pointer" onclick="if (confirm('Tem certeza que deseja excluir essa parte do dia?')){ location.href='{{env('APP_URL')}}delete/{{$value->id}}'; }">
                 </td>
             </tr>
-                @endforeach
-            @endif
+            @endforeach
         </tbody>
     </table>
+    @else
+    <br><div class='text-center'><div class='btn btn-danger'>Sem nenhum registro encontrado!</div></div>
+    @endif
 @endsection

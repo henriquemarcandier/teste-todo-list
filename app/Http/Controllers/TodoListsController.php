@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TodoLists;
 use App\Models\TodoListsTasks;
 use Illuminate\Http\Request;
+date_default_timezone_set('America/Sao_Paulo');
 
 class TodoListsController extends Controller
 {
@@ -16,9 +17,12 @@ class TodoListsController extends Controller
         ]);
     }
 
-    public function listTasks($id){
+    public function listTasks($id, $data = null){
+        if (!$data){
+            $data = date('Y-m-d');
+        }
         $todoLists = todoLists::where('id', $id)->get();
-        $todoListsTasks = todoListsTasks::where('id_todo_lists', $id)->get();
+        $todoListsTasks = todoListsTasks::where('id_todo_lists', $id)->where('date', $data)->get();
         foreach ($todoListsTasks as $key => $value){
             if ($value->date == date('Y-m-d')){
                 $todoListsTasks2[] = $value;
