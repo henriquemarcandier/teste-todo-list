@@ -8,9 +8,9 @@
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{env('APP_URL')}}css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{asset('/css/bootstrap.min.css')}}">
         <!-- https://fonts.google.com/specimen/Open+Sans -->
-        <link rel="stylesheet" href="{{env('APP_URL')}}css/fontawesome.min.css">
+        <link rel="stylesheet" href="{{asset('/css/fontawesome.min.css')}}">
         <!-- https://fontawesome.com/ -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">  
         <!-- https://getbootstrap.com/ -->

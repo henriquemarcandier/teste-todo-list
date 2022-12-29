@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\TodoListsController::class, 'list'])->name('index');
+Route::get('/register', [\App\Http\Controllers\TodoListsController::class, 'store'])->name('register');
 Route::get('/{id}', [\App\Http\Controllers\TodoListsController::class, 'list'])->name('edit');
 Route::get('/delete/{id}', [\App\Http\Controllers\TodoListsController::class, 'list'])->name('delete');
 Route::get('/listTasks/{id}', [\App\Http\Controllers\TodoListsController::class, 'listTasks'])->name('listTasks');
