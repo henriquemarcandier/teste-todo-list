@@ -14,7 +14,7 @@
     <br>
     <div class="text-center">
         <input type="submit" value="Editar" class="btn btn-primary">
-        <input type="button" onclick="document.getElementById('formEdit').reset(); $('#name').focus();" value="Limpar Campos" class="btn btn-danger">
+        <input type="button" onclick="location.href='{{route('index')}}'" value="Limpar Campos" class="btn btn-danger">
     </div>
 </form>
 @endsection

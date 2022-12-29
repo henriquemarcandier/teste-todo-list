@@ -15,18 +15,45 @@ class TodoListsTasksController extends Controller
         }
         $todoLists = todoLists::where('id', $id)->get();
         $todoListsTasks = todoListsTasks::where('id_todo_lists', $id)->where('date', $data)->get();
-        foreach ($todoListsTasks as $key => $value){
-            if ($value->date == date('Y-m-d')){
-                $todoListsTasks2[] = $value;
-            }
-        }  
-        if (!isset($todoListsTasks2)){
-            $todoListsTasks2 = 0;
-        }  
         return view('listTasks', [
             'todoLists' => $todoLists,
-            'todoListsTasks' => $todoListsTasks2,
+            'todoListsTasks' => $todoListsTasks,
+            'id' => $id,
+            'data' => $data,
             'title' => 'Visualização de Tarefas do Dia na '.$todoLists[0]->name
         ]);
+    }
+    public function register($idToDo){
+        return view('createTask', [
+            'title' => "Cadastro de Tarefa",
+            'idToDo' => $idToDo
+        ]);
+    }
+
+    public function store(Request $request){
+        $todoLists = new TodoListsTasks();
+        $todoLists->id_todo_lists = $request->idToDo;
+        $todoLists->name = $request->name;
+        $todoLists->text = $request->text;
+        $todoLists->date = $request->date;
+        $todoLists->completed = 0;
+        $todoLists->save();
+        return redirect()->route('listTasks', $request->idToDo);
+    }
+
+    
+    
+    public function approve($id, $idToDo){
+        $todoListsTask = TodoListsTasks::where('id', $id)->update([
+            'completed' => '1'
+        ]);
+        dd($todoListsTask);
+        return redirect()->route('listTasks', $id);
+    }
+
+    public function destroy($idToDo, $id){
+        $todoListsTask = TodoListsTasks::find($id);
+        $todoListsTask->delete();
+        return redirect()->route('listTasks', $idToDo);
     }
 }

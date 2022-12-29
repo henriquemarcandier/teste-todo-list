@@ -13,7 +13,7 @@
     <br>
     <div class="text-center">
         <input type="submit" value="Cadastrar" class="btn btn-primary">
-        <input type="button" onclick="document.getElementById('formRegister').reset(); $('#name').focus();" value="Limpar Campos" class="btn btn-danger">
+        <input type="button" onclick="location.href='{{route('index')}}'" value="Voltar" class="btn btn-danger">
     </div>
 </form>
 @endsection
