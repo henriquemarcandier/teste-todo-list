@@ -1,5 +1,6 @@
 @extends('master.layout')
 @section('content')
+<a href="{{route('register')}}">Cadastrar Novo</a>
 @if (count($todoLists))
     <table id="example2" class="table table-bordered table-hover w-100">
         <thead>

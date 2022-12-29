@@ -17,24 +17,49 @@ class TodoListsController extends Controller
         ]);
     }
 
-    public function listTasks($id, $data = null){
-        if (!$data){
-            $data = date('Y-m-d');
-        }
-        $todoLists = todoLists::where('id', $id)->get();
-        $todoListsTasks = todoListsTasks::where('id_todo_lists', $id)->where('date', $data)->get();
-        foreach ($todoListsTasks as $key => $value){
-            if ($value->date == date('Y-m-d')){
-                $todoListsTasks2[] = $value;
-            }
-        }  
-        if (!isset($todoListsTasks2)){
-            $todoListsTasks2 = 0;
-        }  
-        return view('listTasks', [
-            'todoLists' => $todoLists,
-            'todoListsTasks' => $todoListsTasks2,
-            'title' => 'Visualização de Tarefas do Dia na '.$todoLists[0]->name
+    public function register(){
+        return view('create', [
+            'title' => "Cadastro de To Do"
         ]);
+    }
+
+    public function store(Request $request){
+        $todoLists = new TodoLists();
+        $todoLists->name = $request->name;
+        $todoLists->article = $request->article;
+        $todoLists->save();
+        return redirect()->route('index');
+    }
+
+    
+    public function edit($id)
+    {
+        $todoList = TodoLists::find($id);  
+        return view('edit', [
+            'todoList' => $todoList,
+            'title' => 'Edição de To Do'
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Page  $page
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $todoList = TodoLists::where("id", $id)->update([
+            'name' => $request->name,
+            'article' => $request->article
+        ]);
+        return redirect()->route('index');
+    }
+    
+    public function destroy($id){
+        $todoLists = TodoLists::find($id);
+        $todoLists->delete($id);
+        return redirect()->route('index');
     }
 }
