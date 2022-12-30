@@ -12,6 +12,8 @@ Aí é só fazer isso que já vai funcionar.
 
 Ontem eu fiquei vendo vídeos no youtube à respeito dessa nova versão do larável, que são mudanças bem impactantes na estrutura final. O site ficou bem rápido e aguenta quantos dados forem.
 
+Ah eh mesmo, nos 3 primeiros commits eu não coloquei a descrição, mas foram criadas as páginas do to do neles.
+
 Espero que goste do meu trabalho.
 
 Atenciosamente,
