@@ -15,9 +15,11 @@ class TodoListsTasksController extends Controller
         }
         $todoLists = todoLists::where('id', $id)->get();
         $todoListsTasks = todoListsTasks::where('id_todo_lists', $id)->where('date', $data)->get();
+        $todoListsTasksConcluidas = todoListsTasks::where('id_todo_lists', $id)->where('date', $data)->where('completed', '1')->get();
         return view('listTasks', [
             'todoLists' => $todoLists,
             'todoListsTasks' => $todoListsTasks,
+            'todoListsTasksConcluidas' => count($todoListsTasksConcluidas),
             'id' => $id,
             'data' => $data,
             'title' => 'Visualização de Tarefas do Dia na '.$todoLists[0]->name
@@ -40,14 +42,50 @@ class TodoListsTasksController extends Controller
         $todoLists->save();
         return redirect()->route('listTasks', $request->idToDo);
     }
+    
+    public function edit($idToDo, $id)
+    {
+        $todoListTask = TodoListsTasks::find($id);  
+        return view('editTask', [
+            'id' => $id,
+            'idToDo' => $idToDo,
+            'todoListTask' => $todoListTask,
+            'title' => 'Edição de Tarefa'
+        ]);
+    }
 
+    public function update(Request $request)
+    {
+        $todoList = TodoListsTasks::where("id", $request->id)->update([
+            'name' => $request->name,
+            'text' => $request->text,
+            'date' => $request->date
+        ]);
+        return redirect()->route('listTasks', $request->idToDo);
+    }
     
-    
-    public function approve($id, $idToDo){
+    public function approve($idToDo, $id){
         $todoListsTask = TodoListsTasks::where('id', $id)->update([
             'completed' => '1'
         ]);
-        dd($todoListsTask);
+        return redirect()->route('listTasks', $idToDo);
+    }
+    
+    public function desapprove($idToDo, $id){
+        $todoListsTask = TodoListsTasks::where('id', $id)->update([
+            'completed' => '0'
+        ]);
+        return redirect()->route('listTasks', $idToDo);
+    }
+
+    public function clearApproved($id){
+        $todoListsTask = TodoListsTasks::where("id_todo_lists", $id)->where('completed', '1')->get();
+        if (count($todoListsTask)){
+            foreach ($todoListsTask as $key => $value){
+                $todoListTask = TodoListsTasks::find($value->id);
+                $todoListTask->delete();
+            }
+        }
         return redirect()->route('listTasks', $id);
     }
 
