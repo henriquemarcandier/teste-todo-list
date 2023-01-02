@@ -14,6 +14,8 @@ Ontem eu fiquei vendo vídeos no youtube à respeito dessa nova versão do lará
 
 Ah eh mesmo, nos 3 primeiros commits eu não coloquei a descrição, mas foram criadas as páginas do to do neles.
 
+Aí eu já adicionei o arquivo 'CRON' do domínio tbm. Esse arquivo especificamente, utiliza o connect.pho, que se encontra na pasta public. Caso a sua base de dados seja diferente de localhost, ou o seu banco de dados for diferente do utilizado por mim, entre nesse connect.php e substitua as informações pela corretas. Aí basta executar o arquivo via navegador mesmo, por ex: https://localhost/teste-todo-list/public/cron.php (no meu caso), para que a base de dados seja populada corretamente e depois é só voltar ao projeto que vc vai ver que todas as descriçõess foram copiadas do dia "29/12/2022" para os dias do mes atual.
+
 Espero que goste do meu trabalho.
 
 Atenciosamente,
