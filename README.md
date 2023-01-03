@@ -18,6 +18,8 @@ Aí eu já adicionei o arquivo 'CRON' do domínio tbm. Esse arquivo especificame
 
 Só pra facilitar a sua vida, eu subi também o arquivo teste_todo.sql com todos os registros necessários para o teste aí.
 
+Ah, e pensando melhor até, eu modifiquei o arquivo cron.php para que ele pegue os dados do primeiro registro e depois pegue todos os registros com a mesma data e jogue na tabela para o mês atual. Fica mais certo assim, pois vc pode apagar algum registro lá, e qdo clicar em "Executar Verificação" o sistema vai ver que existe algum registro não criado lá e já o cria novamente. Fico bem bacana, já que perde a necessidades dos arquivos cron.php e connect.php que eu havia criado lá.
+
 Espero que goste do meu trabalho.
 
 Atenciosamente,
