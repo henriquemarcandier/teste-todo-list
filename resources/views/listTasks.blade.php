@@ -1,6 +1,6 @@
 @extends('master.layout')
 @section('content')
-    <a href="{{route('index')}}">&laquo; Voltar</a> | <a style="cursor:pointer" onclick="abreFecha('filtro')">Filtrar</a> | <a href="{{route('registerTasks', $id)}}">Cadastrar Nova Tarefa</a> | <a style="cursor:pointer" onclick="if (confirm('Tem certeza que deseja limpar todas as tarefas completadas?')){ location.href='{{route('clearApproved', $id)}}'; }">Limpar Aprovadas</a><br>
+    <a href="@if ($data != date('Y-m-d')){{route('listTasks', $id, $data)}}@else {{route('index')}} @endif">&laquo; Voltar</a> | <a style="cursor:pointer" onclick="abreFecha('filtro')">Filtrar</a> | <a href="{{route('registerTasks', $id)}}">Cadastrar Nova Tarefa</a> | <a style="cursor:pointer" onclick="if (confirm('Tem certeza que deseja limpar todas as tarefas completadas?')){ location.href='{{route('clearApproved', $id)}}'; }">Limpar Completadas</a> | <a style="cursor:pointer" onclick="if (confirm('Tem certeza que deseja executar a verificação e copiar em todos os lugares que não existam as tarefas?')){ location.href='{{route('executeVerification', $id)}}'; }">Executar Verificação</a><br>
     <div id="filtro" style="position:absolute; display:none; border:1px solid #e7e7e7; background-color:#FFFFFF; padding:5px; width:95%">
         <div style="position:absolute; float:left; left:95%; cursor:pointer;" onclick="fecha('filtro')">&times;</div>
         <h3>Filtro</h3>
@@ -11,7 +11,7 @@
             </div>
         </form>
     </div>
-    {{$todoListsTasksConcluidas}} de {{count($todoListsTasks) != 0 ? count($todoListsTasks) : 0}} tarefas concluídas
+    {{$todoListsTasksConcluidas}} de {{count($todoListsTasks) != 0 ? count($todoListsTasks) : 0}} @if (count($todoListsTasks) > 1)tarefas @else tarefa @endif @if (count($todoListsTasks) > 1)completas @else completa @endif
     @if (count($todoListsTasks) != 0)
     <table id="example2" class="table table-bordered table-hover w-100">
         <thead>

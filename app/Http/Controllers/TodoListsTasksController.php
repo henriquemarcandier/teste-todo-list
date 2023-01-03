@@ -6,6 +6,8 @@ use App\Models\TodoLists;
 use App\Models\TodoListsTasks;
 use Illuminate\Http\Request;
 date_default_timezone_set('America/Sao_Paulo');
+set_time_limit(0);
+ini_set('max_execution_time', 0);
 
 class TodoListsTasksController extends Controller
 {
@@ -86,6 +88,43 @@ class TodoListsTasksController extends Controller
                 $todoListTask->delete();
             }
         }
+        return redirect()->route('listTasks', $id);
+    }
+    
+    public function executeVerification($id){
+        $diasMes = date('t', strtotime(date('Y-m-d H:i:s')));
+        for ($i = date('d'); $i <= $diasMes; $i++){
+            if ($i < 10 && $i > date('d')){
+                $i2 = "0".$i;
+            }
+            else{
+                $i2 = $i;
+            }
+            $data = date('Y-m')."-".$i2;
+            $todoListsTasks = TodoListsTasks::skip(0)->take(1)->get();
+            if (count($todoListsTasks)){
+                $todoListTasks = TodoListsTasks::where("date", $todoListsTasks[0]->date)->get();
+                if (count($todoListTasks)){
+                    foreach ($todoListTasks as $key => $value){
+                        $toListTask = TodoListsTasks::where('date', $data)->where('id_todo_lists', $value->id_todo_lists)->where('name', $value->name)->where('text', $value->text)->get();
+                        if (count($toListTask) == 0){
+                            $todosListsTasks = new TodoListsTasks();
+                            $todosListsTasks->id_todo_lists = $value->id_todo_lists;
+                            $todosListsTasks->name = $value->name;
+                            $todosListsTasks->text = $value->text;
+                            $todosListsTasks->date = $data;
+                            $todosListsTasks->completed = "0";
+                            $todosListsTasks->save();
+                        }
+                    }
+                }
+            }
+        }
+        ?>
+        <script>
+        alert('Verificação executada com sucesso!');
+        </script>
+        <?php
         return redirect()->route('listTasks', $id);
     }
 

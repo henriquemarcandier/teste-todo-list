@@ -27,5 +27,6 @@ Route::get('/deleteTask/{idToDo}/{id}', [\App\Http\Controllers\TodoListsTasksCon
 Route::get('/approveTasks/{id}/{idToDo}', [\App\Http\Controllers\TodoListsTasksController::class, 'approve'])->name('approveTasks');
 Route::get('/desapproveTasks/{id}/{idToDo}', [\App\Http\Controllers\TodoListsTasksController::class, 'desapprove'])->name('desapproveTasks');
 Route::get('/clearApproved/{id}', [\App\Http\Controllers\TodoListsTasksController::class, 'clearApproved'])->name('clearApproved');
+Route::get('/executeVerification/{id}', [\App\Http\Controllers\TodoListsTasksController::class, 'executeVerification'])->name('executeVerification');
 Route::get('/listTasks/{id}', [\App\Http\Controllers\TodoListsTasksController::class, 'list'])->name('listTasks');
 Route::get('/listTasks/{id}/{data}', [\App\Http\Controllers\TodoListsTasksController::class, 'list'])->name('listTasks2');
